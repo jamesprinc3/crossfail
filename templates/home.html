@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+<div class="block1">
+<b>{{ warning }}</b>
+<h1>Hello Traveller!</h1>
+  <h2>How many hours of your life have you lost due to Crossrail delays? Find out below: </h2>
+
+<form method="POST">
+    Home postcode: <input name="home_postcode"> <br>
+    Work postcode: <input name="work_postcode"> <br>
+    <input type="submit">
+</form>
+</div>
+
+
+{% endblock %}
