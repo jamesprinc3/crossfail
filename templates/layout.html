@@ -6,19 +6,38 @@
 
 body{
     text-align: center;
+    background-color: #753BBD;
 }
 h1{
     font-family: 'Amatic SC', cursive;
     font-weight: normal;
-    color: #8ac640;
+    color: #FFFFFF;
     font-size: 2.5em;
+}
+body{
+    font-family: 'Helvetica Neue', cursive;
+    font-weight: normal;
+    color: #FFFFFF;
+    font-size: 1.5em;
 }
 
 </style>
 
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.2&appId=1640661359591349&autoLogAppEvents=1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<h1>Hello Traveller!</h1>
+  <h2>How many hours of your life have you lost due to Crossrail delays? Find out below: </h2>
  {% block body %}{% endblock %}
 
+<a href="https://twitter.com/intent/tweet?button_hashtag=Crossfail&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #Crossfail</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<div class="fb-share-button" data-href="http://crossfail.co.uk" data-layout="button" data-size="small" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcrossfail.co.uk%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
 </body>
 </html>
