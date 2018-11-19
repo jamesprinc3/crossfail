@@ -6,7 +6,6 @@ install: pip install -r requirements.txt
 before_script:
 - export FLASK_APP="$TRAVIS_BUILD_DIR/autoapp.py"
 - export FLASK_DEBUG=1
-script: flask test
 before_install:
 - openssl aes-256-cbc -K $encrypted_18396a2de35a_key -iv $encrypted_18396a2de35a_iv
   -in client-secret.json.enc -out client-secret.json -d
