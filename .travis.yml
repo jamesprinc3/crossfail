@@ -8,7 +8,7 @@ before_script:
 - export FLASK_DEBUG=1
 before_install:
 - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then openssl aes-256-cbc -K $encrypted_18396a2de35a_key -iv $encrypted_18396a2de35a_iv -in config.py.enc -out config.py -d; fi'
-- 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then openssl aes-256-cbc -K $encrypted_18396a2de35a_key -iv $encrypted_18396a2de35a_iv -in client-secret.json.enc -out client-secret.json-d; fi'
+- 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then openssl aes-256-cbc -K $encrypted_18396a2de35a_key -iv $encrypted_18396a2de35a_iv -in client-secret.json.enc -out client-secret.json -d; fi'
 script: flask --help
 deploy:
   provider: gae
