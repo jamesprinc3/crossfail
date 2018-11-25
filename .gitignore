@@ -1,3 +1,4 @@
+*.DS_STORE
 secrets.tar
 tfl_data.csv
 client-secret.json
