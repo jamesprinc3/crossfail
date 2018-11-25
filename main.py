@@ -42,12 +42,15 @@ def hello():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
+    home_postcode = request.form['home_postcode'].upper()
+    work_postcode = request.form['work_postcode'].upper()
+
     postcode_regex = re.compile('([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})')
-    if postcode_regex.match(request.form['home_postcode']) is None or postcode_regex.match(request.form['work_postcode']) is None:
+    if postcode_regex.match(home_postcode) is None or postcode_regex.match(work_postcode) is None:
         return render_template('home.html', warning="Invalid input, try again!")
     try:
-
-        response = gmaps.directions(request.form['home_postcode'], request.form['work_postcode'],
+        response = gmaps.directions(home_postcode,
+                                    work_postcode,
                                     mode="transit",
                                     arrival_time=datetime.datetime(2018, 11, 19, 9, 0, 0))
 
@@ -72,6 +75,9 @@ def my_form_post():
         closest_to_origin = magic_sorted[0][0][1]
         closest_to_destination = magic_sorted[1][0][1]
 
+        if closest_to_origin == closest_to_destination:
+            return render_template('bad_result.html')
+
         crossrail_time_in_mins = time_csv_dict[(closest_to_origin, closest_to_destination)]
 
         origin_to_crossrail = magic_sorted[0][0][0]
@@ -87,6 +93,8 @@ def my_form_post():
             total_hours_wasted = round((saving_minutes_week * 52)/60)
 
             return render_template('good_result.html',
+                                   home_postcode=home_postcode,
+                                   work_postcode=work_postcode,
                                    current_journey_time=current_journey_time_in_mins,
                                    crossrail_journey_time=new_journey_time,
                                    saving_minutes_day=saving_minutes_day,
