@@ -40,10 +40,10 @@ def generate_dict(rows: List[List[str]]):
 def hello():
     return render_template('home.html')
 
-@app.route('/', methods=['POST'])
+@app.route('/result')
 def my_form_post():
-    home_postcode = request.form['home_postcode'].upper()
-    work_postcode = request.form['work_postcode'].upper()
+    home_postcode = request.args.get('home').upper()
+    work_postcode = request.args.get('work').upper()
 
     postcode_regex = re.compile('([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})')
     if postcode_regex.match(home_postcode) is None or postcode_regex.match(work_postcode) is None:
