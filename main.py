@@ -3,12 +3,18 @@ import re
 from typing import List
 
 from flask import Flask, render_template, request
+from flask_caching import Cache
 import googlemaps
 import csv
 
 import config
 
 app = Flask(__name__)
+try:
+    cache = Cache(app, config={'CACHE_TYPE': 'gaememcached'})
+except RuntimeError as e:
+    print(e)
+    cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 gmaps = googlemaps.Client(key=config.goglemaps_api_key)
 
 def canonicalise_station_name(station_name: str):
@@ -35,13 +41,17 @@ def generate_dict(rows: List[List[str]]):
     return the_dict
 
 
-
 @app.route('/')
+@cache.cached(timeout=600)
 def hello():
     return render_template('home.html')
 
+
 @app.route('/result')
+@cache.cached(timeout=86400)
 def my_form_post():
+    print("Response wasn't cached")
+
     home_postcode = request.args.get('home').upper()
     work_postcode = request.args.get('work').upper()
 
